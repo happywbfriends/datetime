@@ -1,0 +1,7 @@
+.idea
+build/*
+run/*
+.DS_Store
+*.exe
+.bin
+http-client.private.env.json
