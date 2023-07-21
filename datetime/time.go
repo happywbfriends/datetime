@@ -62,15 +62,21 @@ func ParseTime(date string) (t time.Time, e error) {
 }
 
 /*
-	Если в `tm` время нулевое, применяет 2006-01-02 формат, иначе - полный
+	Преобразует время в стандартную для WB Seller API форму.
+
+	Если `allowShortForm==true`, то использует сокращенную форму `YYYY-MM-DD`, если все компоненты времени равны 0.
+
+	Если `allowShortForm==false`, то всегда использует полную форму `YYYY-MM-DDTHH:MM:SS.999999999Z07:00`
 */
 const serializeLayoutFull = "2006-01-02T15:04:05.999999999Z07:00"
 const serializeLayoutShort = "2006-01-02"
 
-func SerializeTime(tm time.Time) string {
-	if ns := tm.Nanosecond(); ns == 0 {
-		if h, m, s := tm.Clock(); h == 0 && m == 0 && s == 0 {
-			return tm.Format(serializeLayoutShort)
+func SerializeTime(tm time.Time, allowShortForm bool) string {
+	if allowShortForm {
+		if ns := tm.Nanosecond(); ns == 0 {
+			if h, m, s := tm.Clock(); h == 0 && m == 0 && s == 0 {
+				return tm.Format(serializeLayoutShort)
+			}
 		}
 	}
 

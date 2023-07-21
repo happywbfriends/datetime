@@ -57,7 +57,7 @@ func TestParseTime(t *testing.T) {
 }
 
 type TestMarshalStruct struct {
-	D SerializedTime `json:"d"`
+	D ParsedTime `json:"d"`
 }
 
 func TestUnmarshalling(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 )
 
 type testSerializedTime struct {
-	T SerializedTime `json:"t,omitempty"`
+	T ParsedTime `json:"t,omitempty"`
 }
 
 const milliSec = 1_000_000
@@ -48,14 +48,14 @@ func TestSerializedTime_MarshalJSON(t *testing.T) {
 		t          time.Time
 		marshalled string
 	}{
-		{"1", time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC), `{"t":"2023-01-01"}`},
+		{"1", time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC), `{"t":"2023-01-01T00:00:00Z"}`},
 		{"2", time.Date(1981, 3, 4, 11, 1, 59, 123*milliSec, time.UTC), `{"t":"1981-03-04T11:01:59.123Z"}`},
 		{"3", time.Time{}, `{"t":""}`},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			d := testSerializedTime{
-				T: SerializedTime{
+				T: ParsedTime{
 					Time: tt.t,
 				},
 			}
