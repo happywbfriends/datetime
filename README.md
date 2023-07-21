@@ -21,7 +21,6 @@
 
 ## Ручной парсинг и сериализация времени 
 
-```
     import github.com/happywbfriends/datetime/datetime
 
     // Parse
@@ -30,13 +29,11 @@
     // Serialize
     fmt.Print(datetime.SerializeTime(time.Now(), true))
      
-```
 
 ## Парсинг и сериализация в JSON поле
 
-Чтобы автоматически распарсить время в поле структуры при использовании `json.Unmarshal`, поле следует объявить типа `SerializedTime`
+Чтобы автоматически распарсить время в поле структуры при использовании `json.Unmarshal`, поле следует объявить типа `ParsedTime`
 
-```
     import github.com/happywbfriends/datetime/datetime
 
     type Foo struct {
@@ -56,4 +53,3 @@
     data, _ := json.Marshal(&foo)
 
     fmt.Print(data) // Prints `{"t":"2030-01-02T00:00:00Z"}`
-```
